@@ -1,24 +1,51 @@
+#ifndef EDGE_H
+#define EDGE_H
+
 #include <utility>
 #include <vector>
 #include <memory>
+#include <cstdint>
 
+template <class T> class Node;
 
 template <class T> class  Edge {
 
 public:
-  void value(const T &value);
-  void value(const T &&value);
-  T &value();
-  const T &value() const;
-  Node *predecessor();
-  void predecessor(Node* pred);
-	std::vector<std::shared_ptr<Edge>>& edgesIn();
-	std::vector<std::shared_ptr<Edge>>& edgesOut();
-	void addEdge(std::shared_ptr<Edge>& edge);
+  
+	const uint16_t id() const ;
+	void id(const uint16_t edge_id);
+	bool src(Node<T>* srcNode);
+	Node<T>* src();
+	bool dst(Node<T>* dstNode);
+	Node<T>* dst();
 
 private:
-	T _value;
-	Node *_pred = nullptr;
-	std::vector<std::shared_ptr<Edge>> _edgesIn;
-	std::vector<std::shared_ptr<Edge>> _edgesOut;
+	uint16_t _id;
+	Node<T>* _src = nullptr;
+	Node<T>* _dst = nullptr;
+	
 };
+
+template <class T> inline const uint16_t Edge<T>::id() const { return _id;}
+
+template <class T> inline void Edge<T>::id(uint16_t edge_id) { _id = edge_id;}
+
+template <class T> inline bool Edge<T>::src(Node<T>* srcNode) {
+	if(srcNode != nullptr)
+		return false;
+	_src = srcNode;
+	return true;
+}
+
+template <class T> inline Node<T>* Edge<T>::src() { return _src;}
+
+template <class T> inline bool Edge<T>::dst(Node<T>* dstNode) {
+	if(dstNode != nullptr)
+		return false;
+	_dst = dstNode;
+	return true;
+}
+
+template <class T> inline Node<T>* Edge<T>::dst() { return _dst;}
+
+#endif /* EDGE_H */

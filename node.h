@@ -1,8 +1,10 @@
+#ifndef NODE_H
+#define NODE_H
+
 #include <utility>
 #include <vector>
 #include <memory>
-
-extern class Edge;
+#include "edge.h"
 
 template <class T> class  Node {
 
@@ -13,15 +15,15 @@ public:
   const T &value() const;
   Node *predecessor();
   void predecessor(Node* pred);
-	std::vector<std::shared_ptr<Edge>>& edgesIn();
-	std::vector<std::shared_ptr<Edge>>& edgesOut();
-	void addEdge(std::shared_ptr<Edge>& edge);
+	std::vector<std::shared_ptr<Edge<T>>>& edgesIn();
+	std::vector<std::shared_ptr<Edge<T>>>& edgesOut();
+	void addEdge(std::shared_ptr<Edge<T>>& edge);
 
 private:
 	T _value;
 	Node *_pred = nullptr;
-	std::vector<std::shared_ptr<Edge>> _edgesIn;
-	std::vector<std::shared_ptr<Edge>> _edgesOut;
+	std::vector<std::shared_ptr<Edge<T>>> _edgesIn;
+	std::vector<std::shared_ptr<Edge<T>>> _edgesOut;
 };
 
 template <class T> inline void Node<T>::value(const T &value) {
@@ -42,18 +44,19 @@ template <class T> inline void Node<T>::predecessor(Node* pred) {
   _pred = pred;
 }
 
-template <class T> inline std::vector<std::shared_ptr<Edge>>& Node<T>::edgesIn() {
+template <class T> inline std::vector<std::shared_ptr<Edge<T>>>& Node<T>::edgesIn() {
 	return _edgesIn;
 }
 
-template <class T> inline std::vector<std::shared_ptr<Edge>>& Node<T>::edgesOut() {
+template <class T> inline std::vector<std::shared_ptr<Edge<T>>>& Node<T>::edgesOut() {
 	return _edgesOut;
 }
 
-template <class T> inline void Node<T>::addEdge(std::shared_ptr<Edge>& edge) {
+template <class T> inline void Node<T>::addEdge(std::shared_ptr<Edge<T>>& edge) {
 	if(edge->src() == this)
 		_edgesIn.push_back(edge);
 	if(edge->dest() == this)
 		_edgesOut.push_back(edge);
 	}
 
+#endif /* NODE_H */
