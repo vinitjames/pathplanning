@@ -14,7 +14,6 @@ public:
 private:
 	std::vector<Node<T>*> _nodes;
 	std::vector<Edge<T>*> _edges;
-		
 };
 
 #endif /* GRAPH_H */
