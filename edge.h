@@ -11,7 +11,8 @@ template <class T> class Node;
 template <class T> class  Edge {
 
 public:
-  
+    Edge() = default;
+	Edge(Node<T>* src, Node<T>* dst);
 	const uint16_t id() const ;
 	void id(const uint16_t edge_id);
 	bool src(Node<T>* srcNode);
@@ -25,6 +26,9 @@ private:
 	Node<T>* _dst = nullptr;
 	
 };
+
+template <class T> inline Edge<T>::Edge(Node<T>* src, Node<T>* dst)
+	:_src{src}, _dst{dst}{}
 
 template <class T> inline const uint16_t Edge<T>::id() const { return _id;}
 

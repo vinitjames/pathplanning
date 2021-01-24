@@ -9,6 +9,9 @@
 template <class T> class  Node {
 
 public:
+	Node() = default;
+  Node(const T& value);
+  Node(const T&& value);
   void value(const T &value);
   void value(const T &&value);
   T &value();
@@ -25,6 +28,12 @@ private:
 	std::vector<std::shared_ptr<Edge<T>>> _edgesIn;
 	std::vector<std::shared_ptr<Edge<T>>> _edgesOut;
 };
+
+template <class T> inline Node<T>::Node(const T& value)
+	:_value{value}{}
+
+template <class T> inline Node<T>::Node(const T&& value)
+	:_value{std::move(value)}{}
 
 template <class T> inline void Node<T>::value(const T &value) {
   _value = value;
