@@ -12,6 +12,7 @@ public:
   void addNode(Node<T> *node);
   void removeNode(Node<T> *node);
   void addEdge(Node<T> *src, Node<T> *dst);
+  Node<T>* getNode(const int index);
   void removeEdge(Edge<T> *edge);
 
 private:
@@ -38,6 +39,13 @@ template <class T> inline void Graph<T>::removeNode(Node<T> *node) {
   if (pos == _nodes.end)
     return;
   _nodes.erase(pos);
+}
+
+template <class T> inline Node<T>* Graph<T>::getNode(const int index) {
+	if(index > _nodes.size())
+		return nullptr;
+  
+  return _nodes[index];
 }
 
 template <class T> inline void Graph<T>::addEdge(Node<T> *src, Node<T> *dst) {
